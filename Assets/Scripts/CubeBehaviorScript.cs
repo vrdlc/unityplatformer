@@ -10,7 +10,8 @@ public class CubeBehaviorScript : MonoBehaviour {
 	public float moveForce = 365f;
 	public float maxSpeed = 5f;
 	public float jumpForce = 1000f;
-	public Transform groundCheck;
+	public Transform groundCheckLeft;
+	public Transform groundCheckRight;
 
 	private bool grounded = false;
 
@@ -26,7 +27,8 @@ public class CubeBehaviorScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
+		grounded = Physics2D.Linecast(transform.position, groundCheckLeft.position, 1 << LayerMask.NameToLayer("Ground")) ||
+							 Physics2D.Linecast(transform.position, groundCheckRight.position, 1 << LayerMask.NameToLayer("Ground"));
 
 		if (Input.GetButtonDown("Jump") && grounded) {
 			jump = true;
