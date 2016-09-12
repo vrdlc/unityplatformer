@@ -7,9 +7,10 @@ public class CubeBehaviorScript : MonoBehaviour {
 	[HideInInspector] public bool facingRight = true;
 	[HideInInspector] public bool jump = true;
 
-	public float moveForce = 365f;
-	public float maxSpeed = 5f;
-	public float jumpForce = 1000f;
+	public float moveForce;
+	public float maxSpeed;
+	public float jumpForce;
+	public float friction;
 	public Transform groundCheckLeft;
 	public Transform groundCheckRight;
 
@@ -28,7 +29,7 @@ public class CubeBehaviorScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		grounded = Physics2D.Linecast(transform.position, groundCheckLeft.position, 1 << LayerMask.NameToLayer("Ground")) ||
-							 Physics2D.Linecast(transform.position, groundCheckRight.position, 1 << LayerMask.NameToLayer("Ground"));
+		Physics2D.Linecast(transform.position, groundCheckRight.position, 1 << LayerMask.NameToLayer("Ground"));
 
 		if (Input.GetButtonDown("Jump") && grounded) {
 			jump = true;
@@ -44,6 +45,7 @@ public class CubeBehaviorScript : MonoBehaviour {
 		} else {
 			Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
 		}
+		
 
 		if (h * rb2d.velocity.x < maxSpeed)
 		rb2d.AddForce(Vector2.right * h * moveForce);
@@ -54,6 +56,12 @@ public class CubeBehaviorScript : MonoBehaviour {
 		if (jump) {
 			rb2d.AddForce(new Vector2(0f, jumpForce));
 			jump = false;
+		}
+
+		if(Mathf.Abs(h) < 0.5) {
+			Vector2 vel = rb2d.velocity;
+			vel.x = rb2d.velocity.x * friction;
+			rb2d.velocity = vel;
 		}
 	}
 }
