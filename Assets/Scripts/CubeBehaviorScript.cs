@@ -7,17 +7,17 @@ public class CubeBehaviorScript : MonoBehaviour {
 	[HideInInspector] public bool facingRight = true;
 	[HideInInspector] public bool jump = true;
 
+	private Rigidbody2D rb2d;
 	public float moveForce;
 	public float maxSpeed;
 	public float jumpForce;
 	public float friction;
 	public Transform groundCheckLeft;
 	public Transform groundCheckRight;
+	public float health;
 
 	private bool grounded = false;
 
-	private Rigidbody2D rb2d;
-	private Rigidbody2D wall;
 
 
 	// Use this for initialization
@@ -69,4 +69,12 @@ public class CubeBehaviorScript : MonoBehaviour {
 			rb2d.velocity = vel;
 		}
 	}
+
+	// void OnTriggerEnter2D(Collider2D collider) {
+	//
+	// 	if (collider.gameObject.tag == "Shot") {
+	// 		health -= 1;
+	// 		Debug.Log(health);
+	// 	}
+	
 }

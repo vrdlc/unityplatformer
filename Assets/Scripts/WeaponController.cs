@@ -38,6 +38,8 @@ public class WeaponController : MonoBehaviour {
 		direction.Normalize();
 		shot.GetComponent<Rigidbody2D>().velocity = direction * speed;
 
+		//If the shot hits Ground, it's destroyed
+
 
 	}
 
