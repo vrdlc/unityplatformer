@@ -17,6 +17,7 @@ public class CubeBehaviorScript : MonoBehaviour {
 	private bool grounded = false;
 
 	private Rigidbody2D rb2d;
+	private Rigidbody2D wall;
 
 
 	// Use this for initialization
@@ -45,7 +46,6 @@ public class CubeBehaviorScript : MonoBehaviour {
 		} else {
 			Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
 		}
-		
 
 		if (h * rb2d.velocity.x < maxSpeed)
 		rb2d.AddForce(Vector2.right * h * moveForce);
@@ -58,7 +58,12 @@ public class CubeBehaviorScript : MonoBehaviour {
 			jump = false;
 		}
 
-		if(Mathf.Abs(h) < 0.5) {
+		if(rb2d.velocity.y == 0 && !grounded) {
+			Vector2 fallingVel = new Vector2(0, -5);
+			rb2d.velocity = fallingVel;
+		}
+
+		if(Mathf.Abs(h) < 0.75) {
 			Vector2 vel = rb2d.velocity;
 			vel.x = rb2d.velocity.x * friction;
 			rb2d.velocity = vel;
