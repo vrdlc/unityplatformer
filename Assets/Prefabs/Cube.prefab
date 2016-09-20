@@ -287,7 +287,7 @@ MonoBehaviour:
   friction: 0
   groundCheckLeft: {fileID: 4000011897399914}
   groundCheckRight: {fileID: 4000010841625620}
-  health: 0
+  health: 5
 --- !u!124 &124000010794714990
 Behaviour:
   m_ObjectHideFlags: 1

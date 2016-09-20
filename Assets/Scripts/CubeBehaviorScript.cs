@@ -18,17 +18,16 @@ public class CubeBehaviorScript : MonoBehaviour {
 
 	private bool grounded = false;
 
-
-
 	// Use this for initialization
 	void Awake () {
 
 		rb2d = GetComponent<Rigidbody2D>();
-
+		health = 5;
 	}
 
 	// Update is called once per frame
 	void Update () {
+
 		grounded = Physics2D.Linecast(transform.position, groundCheckLeft.position, 1 << LayerMask.NameToLayer("Ground")) ||
 		Physics2D.Linecast(transform.position, groundCheckRight.position, 1 << LayerMask.NameToLayer("Ground"));
 
@@ -69,12 +68,4 @@ public class CubeBehaviorScript : MonoBehaviour {
 			rb2d.velocity = vel;
 		}
 	}
-
-	// void OnTriggerEnter2D(Collider2D collider) {
-	//
-	// 	if (collider.gameObject.tag == "Shot") {
-	// 		health -= 1;
-	// 		Debug.Log(health);
-	// 	}
-	
 }
