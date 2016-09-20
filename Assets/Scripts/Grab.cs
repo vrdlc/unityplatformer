@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Grab : MonoBehaviour {
 	public Transform HoldPoint;
-	public bool grabbed;
+	[HideInInspector] public bool grabbed;
 	public float throwForce;
 	private Transform Grabbable;
-	public bool hasPlayer;
+	[HideInInspector] public bool hasPlayer;
 
 	void OnTriggerEnter2D(Collider2D collider) {
 
@@ -22,7 +22,9 @@ public class Grab : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
-		hasPlayer = false;
+		if (collider.tag == "Grabbable") {
+			hasPlayer = false;
+		}
 	}
 
 	// Use this for initialization
@@ -41,17 +43,23 @@ public class Grab : MonoBehaviour {
 		// }
 
 		Rigidbody2D rigidBody = Grabbable.GetComponent<Rigidbody2D>();
+		CircleCollider2D circleCollider = Grabbable.GetComponent<CircleCollider2D>();
 
-		if (Input.GetKeyUp(KeyCode.B)) {
+
+		if (Input.GetKeyUp(KeyCode.B) && hasPlayer == true) {
 			rigidBody.isKinematic = false;
+			circleCollider.isTrigger = false;
 			Grabbable.transform.position = Grabbable.transform.position;
 		}
-		if (Input.GetKey(KeyCode.B)) {
+
+		if (Input.GetKey(KeyCode.B) && hasPlayer == true) {
 			Grabbable.transform.position = HoldPoint.position;
 			// rigidBody.gravityScale = 0;
 			// rigidBody.velocity = Vector2.zero;
 			rigidBody.isKinematic = true;
+			circleCollider.isTrigger = true;
 		}
+
 
 
 	}
