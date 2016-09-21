@@ -53,7 +53,19 @@ public class CubeBehaviorScript : MonoBehaviour {
 			walljumping = false;
 		}
 
+		//Should make character rotate
 		h = Input.GetAxis("Horizontal");
+		if (Input.GetKeyDown(KeyCode.RightArrow)){
+			if(transform.rotation != Quaternion.Euler(0, 180, 0))
+			transform.rotation = Quaternion.Euler(0, 180, 0);
+		}
+
+		if (Input.GetKeyDown(KeyCode.LeftArrow)){
+			if(transform.rotation != Quaternion.Euler(0, 0, 0))
+			transform.rotation = Quaternion.Euler(0, 0, 0);
+		}
+
+
 		if (h * rb2d.velocity.x < maxSpeed) {
 			if (walljumping) {
 				rb2d.AddForce(Vector2.right * h * aerialForce);
