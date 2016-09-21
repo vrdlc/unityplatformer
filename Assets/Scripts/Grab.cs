@@ -45,14 +45,18 @@ public class Grab : MonoBehaviour {
 		Rigidbody2D rigidBody = Grabbable.GetComponent<Rigidbody2D>();
 		CircleCollider2D circleCollider = Grabbable.GetComponent<CircleCollider2D>();
 
-
-		if (Input.GetKeyUp(KeyCode.B) && hasPlayer == true) {
+		if (Input.GetKey(KeyCode.DownArrow) && hasPlayer == true) { //Drops item to ground
+			if (Input.GetKeyUp(KeyCode.B)) {
+				rigidBody.isKinematic = false;
+				circleCollider.isTrigger = false;
+			}
+		} else if (Input.GetKeyUp(KeyCode.B) && hasPlayer == true) { //Throws Item
 			rigidBody.isKinematic = false;
 			circleCollider.isTrigger = false;
-			Grabbable.transform.position = Grabbable.transform.position;
+			Grabbable.GetComponent<Rigidbody2D>().AddForce(Vector2.left * throwForce);
 		}
 
-		if (Input.GetKey(KeyCode.B) && hasPlayer == true) {
+		if (Input.GetKey(KeyCode.B) && hasPlayer == true) { //Picks up Item
 			Grabbable.transform.position = HoldPoint.position;
 			// rigidBody.gravityScale = 0;
 			// rigidBody.velocity = Vector2.zero;
